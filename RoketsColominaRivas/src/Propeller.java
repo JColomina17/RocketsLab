@@ -1,9 +1,9 @@
-public class Propulsor {
+public class Propeller {
     
 private double maxacceleration;
 private double  acceleration;
 
-public Propulsor(double maxacceleration) {
+public Propeller(double maxacceleration) {
     acceleration=0;
     this.maxacceleration=maxacceleration;
 }
