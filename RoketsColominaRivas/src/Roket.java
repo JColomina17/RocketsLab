@@ -14,21 +14,21 @@ public class Roket {
 	
 	public void augmentarAcc(double cuant) {
 		for(int x=0;x<3 && cuant>=0;x++) {
-			cuant=llistaProp[x].augmentarAc[cuant];
+			cuant=llistaProp[x].increaseAcceleration(cuant);
 		}
 	}
 	
 	public void disminuirAcc(double cuant) {
 		for(int x=0;x<3 && cuant>=0;x++) {
-			cuant=llistaProp[x].disminuirAc[cuant];
+			cuant=llistaProp[x].decreaseAcceleration(cuant);
 		}
 		}
 	
 	public double getAcceleracio() {
 		double acceleracioTotal=0;
 		
-		for(int x=0;x<3 && cuant>=0;x++) {
-			acceleracioTotal+=llistaProp[x].getAcceleracio();
+		for(int x=0;x<3;x++) {
+			acceleracioTotal+=llistaProp[x].getAcceleration();
 		}
 		
 		return acceleracioTotal;
@@ -51,6 +51,8 @@ public class Roket {
 	
 	
 	public double calcularCombustible() {
-		this.combustible.calcularDiposit(this.velocitatActual);
+		return this.combustible.calcularDiposit(this.velocitatActual);
 	}
+	
+	public String getName() {return this.name;}
 }
