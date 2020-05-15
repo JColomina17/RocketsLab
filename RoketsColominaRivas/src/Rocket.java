@@ -1,36 +1,46 @@
 import java.util.*; 
 
 public class Rocket {
-	private Propeller propelerList[];
+	List<Propeller> propelerList = new ArrayList<Propeller> ();
 	private Fuel fuel;
 	private String name;
 	private double speed;
 	
-	public Rocket(String name,int maxiCapacity) {
+	public Rocket(String name,int maxiCapacity) throws Exception {
 		this.name=name;
-		propelerList = new Propeller[3];
+		propelerList = new ArrayList<Propeller> ();
+
 		this.fuel= new Fuel(maxiCapacity);
 		this.speed=0;
 	}
 	
 	public void increaseAcceleration(double hm) {
-		for(int x=0;x<3 && hm>=0;x++) {
-			hm=propelerList[x].increaseAcceleration(hm);
-		}
+        Iterator<Propeller> it = propelerList.iterator(); 
+        while(it.hasNext() && hm>0) {
+        	it.next();
+    		hm=((Propeller) it).increaseAcceleration(hm);
+
+        }
+		
 	}
 	
 	public void decreaseAcceleration(double hm) {
-		for(int x=0;x<3 && hm>=0;x++) {
-			hm=propelerList[x].decreaseAcceleration(hm);
-		}
+		Iterator<Propeller> it = propelerList.iterator(); 
+        while(it.hasNext() && hm>0) {
+        	it.next();
+    		hm=((Propeller) it).decreaseAcceleration(hm);
+        }
+        
 		}
 	
 	public double getAcceleration() {
 		double acceleration=0;
 		
-		for(int x=0;x<3;x++) {
-			acceleration+=propelerList[x].getAcceleration();
-		}
+		Iterator<Propeller> it = propelerList.iterator(); 
+        while(it.hasNext()) {
+        	it.next();
+        	acceleration+=((Propeller)it).getAcceleration();
+        }
 		
 		return acceleration;
 	}
@@ -51,7 +61,7 @@ public class Rocket {
 		}
 	
 	
-	public double calculateSpeed() {
+	public double calculateTank() throws Exception {
 		return  this.fuel.calculateTank(this.speed);
 	}
 	

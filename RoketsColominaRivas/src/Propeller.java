@@ -1,20 +1,22 @@
 public class Propeller {
     
-private double maxacceleration;
+private double maxAcceleration;
 private double  acceleration;
 
-public Propeller(double maxacceleration) {
+public Propeller(double maxAcceleration) throws Exception {
+	if(maxAcceleration<0) throw new Exception("Error: La acceleracio maxima no pot ser inferior a 0");
+
     acceleration=0;
-    this.maxacceleration=maxacceleration;
+    this.maxAcceleration=maxAcceleration;
 }
 public double increaseAcceleration(double increase) {
-    if(acceleration+increase<=maxacceleration) {
+    if(acceleration+increase<=maxAcceleration) {
         acceleration+=increase;
         return 0;
         }
     else {
-    	double auxiliar= this.maxacceleration - this.acceleration;
-    	this.acceleration=this.maxacceleration;
+    	double auxiliar= this.maxAcceleration - this.acceleration;
+    	this.acceleration=this.maxAcceleration;
     	return auxiliar;
     }
     
