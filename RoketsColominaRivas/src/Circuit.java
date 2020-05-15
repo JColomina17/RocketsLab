@@ -58,6 +58,10 @@ import java.util.Iterator;
 		
 	}
 	
+	public double getTime() {
+		return this.circuitTime;
+	}
+	
 	
 
 

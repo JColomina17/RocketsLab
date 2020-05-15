@@ -17,6 +17,10 @@ public class Rocket {
 		this.speed=0;
 	}
 	
+	public void addPropeller(Propeller p) {
+		this.propelerList.add(p);
+	}
+	
 	public void increaseAcceleration(double hm) {
         Iterator<Propeller> it = propelerList.iterator(); 
         while(it.hasNext() && hm>0) {
