@@ -6,7 +6,7 @@ import java.util.Iterator;
 	private int circuitLength;
 	private String circuitName;
 	private double circuitTime;
-	private ArrayList<Rocket> rocketList;
+	ArrayList<Rocket> rocketList;
 	
 	public Circuit(int circuitLength,String circuitName, double circuitTime ) {
 		this.circuitLength=circuitLength;
@@ -19,12 +19,13 @@ import java.util.Iterator;
 	public void nextMovement(int time) {
 		Iterator<Rocket> it = rocketList.iterator(); 
         while(it.hasNext()) {
-        	it.next();
-        	System.out.println("Que vol fer el rocket "+((Rocket)it).getName());
+        	Rocket r=it.next();
+
+        	System.out.println("Que vol fer el rocket "+r.getName());
         	try {
-				((Rocket)it).nextMovement(time);
+				r.nextMovement(time);
 			} catch (Exception e) {
-	        	System.out.println("El rocket "+((Rocket)it).getName() +" s'ha quedat sense combustible");
+	        	System.out.println("El rocket "+r.getName() +" s'ha quedat sense combustible");
 	        	it.remove();
 
 			}
@@ -35,15 +36,21 @@ import java.util.Iterator;
 	public void infoRocket(double time) {
 		Iterator<Rocket> it = rocketList.iterator(); 
         while(it.hasNext()) {
-        	((Rocket)it).infoRocket(time);
+        	Rocket r=it.next();
+
+        	r.infoRocket(time);
         	
         }
 	}
 	
-	public boolean circuitFinished() {
+	public boolean circuitFinished(double time) {
 		Iterator<Rocket> it = rocketList.iterator(); 
+
         while(it.hasNext()) {
-        	if(((Rocket)it).getDistancecovered()>=this.circuitLength){
+        	Rocket r=it.next();
+    		double distance= r.getDistancecovered();
+        	if(distance>=this.circuitLength){
+        		System.out.println("And the winner is: "+ r.getName() +" with a time of "+time);
         		return true;
         	}
         }

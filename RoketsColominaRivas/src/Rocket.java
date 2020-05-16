@@ -24,18 +24,20 @@ public class Rocket {
 	public void increaseAcceleration(double hm) {
         Iterator<Propeller> it = propelerList.iterator(); 
         while(it.hasNext() && hm>0) {
-        	it.next();
-    		hm=((Propeller) it).increaseAcceleration(hm);
+        	Propeller p=it.next();
+    		hm=p.increaseAcceleration(hm);
 
         }
+        if(hm<0) System.out.println("Potencia Maxima del coet");
 		
 	}
 	
 	public void decreaseAcceleration(double hm) {
 		Iterator<Propeller> it = propelerList.iterator(); 
         while(it.hasNext() && hm>0) {
-        	it.next();
-    		hm=((Propeller) it).decreaseAcceleration(hm);
+        	Propeller p=it.next();
+
+    		hm=p.decreaseAcceleration(hm);
         }
         
 		}
@@ -45,8 +47,8 @@ public class Rocket {
 		
 		Iterator<Propeller> it = propelerList.iterator(); 
         while(it.hasNext()) {
-        	it.next();
-        	acceleration+=((Propeller)it).getAcceleration();
+        	Propeller p=it.next();
+        	acceleration+=p.getAcceleration();
         }
 		
 		return acceleration;
@@ -61,10 +63,10 @@ public class Rocket {
 		
 	}
 	
-	public void distancecovered(double V0, double time) {
+	public double calculateDistancecovered(double V0, double time) {
 			
 		this.distance+= V0 + (this.speed*time) + 1/2*this.getAcceleration()*Math.pow(time, 2);
-
+		return this.distance;
 		}
 	
 	public double getDistancecovered() {
@@ -96,10 +98,11 @@ public class Rocket {
 		
 		 this.calculateSpeed(time);
 		 this.calculateTank();
+		 this.infoRocket(time);
 		}
 	public void infoRocket(double time) {
 		try {
-			System.out.println("El rocket "+this.name+" te una velocitat de "+this.getSpeed()+", amb una acceleracio de "+ this.getAcceleration()+ " amb una distancia correguda de "+this.distance +" i li queda al diposit: "+ this.calculateTank());
+			System.out.println("El rocket "+this.name+" te una velocitat de "+this.getSpeed()+", amb una acceleracio de "+ this.getAcceleration()+ " amb una distancia correguda de "+this.calculateDistancecovered(this.speed, time) +" i li queda al diposit: "+ this.calculateTank()+"/"+this.fuel.getMaximumCapacity());
 		} catch (Exception e) {
 			System.out.println("El rocket "+this.name+" s'ha quedad sense gasolina");
 		}

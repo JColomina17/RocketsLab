@@ -19,6 +19,8 @@ public class Fuel  {
         else {
         return fuelLevel;}
     }
+	
+	public double getMaximumCapacity() {return this.maximumCapacity;}
     
    
 

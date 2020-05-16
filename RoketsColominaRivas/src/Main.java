@@ -8,14 +8,27 @@ public class Main {
 		String circuitName="SeaFly";
 		double circuitTime=28;
 		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);
-		addRockets(circuit);
-		while(circuit.circuitFinished()) {
-			for(int time=0; time<circuit.getTime(); time++) {
-				
+		addRocketProba(circuit);
+			for(int time=1; time<circuit.getTime()&& !(circuit.circuitFinished(time)); time++) {
+				System.out.println("klk");
+				circuit.nextMovement(time);
 			}
-		}
+		
 
 }
+	
+	public static void addRocketProba(Circuit circuit) throws Exception {
+		Rocket r= new Rocket("Cacatua Espacial",4200);
+		Propeller p1=new Propeller(10);
+		Propeller p2=new Propeller(20);
+		Propeller p3=new Propeller(50);
+
+		r.addPropeller(p2);
+		r.addPropeller(p1);
+		r.addPropeller(p3);
+		circuit.addRockets(r);
+
+	}
 	
 	public static void addRockets(Circuit circuit) throws Exception {
 		boolean Continue=true;

@@ -17,7 +17,7 @@ public double increaseAcceleration(double increase) {
     else {
     	double auxiliar= this.maxAcceleration - this.acceleration;
     	this.acceleration=this.maxAcceleration;
-    	return auxiliar;
+    	return increase-auxiliar;
     }
     
 }
