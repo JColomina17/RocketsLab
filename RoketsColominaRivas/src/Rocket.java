@@ -1,6 +1,6 @@
 import java.util.*;
 
-import Keyboard.Keyboard; 
+import Keyboard.Keyboard;
 
 public class Rocket {
 	List<Propeller> propelerList = new ArrayList<Propeller> ();
@@ -28,7 +28,7 @@ public class Rocket {
     		hm=p.increaseAcceleration(hm);
 
         }
-        if(hm<0) System.out.println("Potencia Maxima del coet");
+        if(hm<0) System.out.println("Maximum power already reached");
 		
 	}
 	
@@ -80,17 +80,17 @@ public class Rocket {
 	public void nextMovement(int time) throws Exception {
 		int option;
 		double aux;
-		System.out.println("1 per accelerar 2 per frenar");
+		System.out.println("Press 1 to accelerate and 2 to stop");
 		option=Keyboard.readInt();
 		switch(option) {
 		  case 1:
-			  System.out.println("Quant vols accelerar?");
+			  System.out.println("How much do you want to accelerate");
 			  aux=Keyboard.readDouble();
 			  this.increaseAcceleration(aux);
 			  
 			  break;
 		  case 2:
-			  System.out.println("Quant vols disminuir?");
+			  System.out.println("How much do you want to decrease");
 			  aux=Keyboard.readDouble();
 			  this.decreaseAcceleration(aux);
 			  break;
@@ -102,9 +102,9 @@ public class Rocket {
 		}
 	public void infoRocket(double time) {
 		try {
-			System.out.println("El rocket "+this.name+" te una velocitat de "+this.getSpeed()+", amb una acceleracio de "+ this.getAcceleration()+ " amb una distancia correguda de "+this.calculateDistancecovered(this.speed, time) +" i li queda al diposit: "+ this.calculateTank()+"/"+this.fuel.getMaximumCapacity());
+			System.out.println("The rocket "+this.name+" te una velocitat de "+this.getSpeed()+", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuel.getMaximumCapacity());
 		} catch (Exception e) {
-			System.out.println("El rocket "+this.name+" s'ha quedad sense gasolina");
+			System.out.println("The rocket "+this.name+" has no fuel");
 		}
 	}
 	

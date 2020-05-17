@@ -9,7 +9,7 @@ public class Main {
 		double circuitTime=28;
 		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);
 		addRocketProba(circuit);
-			for(int time=1; time<circuit.getTime()&& !(circuit.circuitFinished(time)); time++) {
+			for(int time=1; time<circuit.getTime()&& !(circuit.circuitFinished(time))&& circuit.rocketList.size()>0; time++) {
 				System.out.println("klk");
 				circuit.nextMovement(time);
 			}
@@ -33,25 +33,25 @@ public class Main {
 	public static void addRockets(Circuit circuit) throws Exception {
 		boolean Continue=true;
 		while(Continue) {
-		System.out.println("Com es dira el rocket?");
+		System.out.println("Which will be the name of the rocket");
 		String nameRocket=Keyboard.readString();	
-		System.out.println("Quina sera la capacitat maxima del combustible?");
+		System.out.println("Which one will be the maximum capacity of the tank");
 		int maxiCapacity=Keyboard.readInt();
 		
 		Rocket r= new Rocket(nameRocket,maxiCapacity);
 		
-		System.out.println("Cuants propulsors tindra el rocket?");
+		System.out.println("How many propellers will the rocket have? ");
 		int numProp=Keyboard.readInt();
 		for(int x=0; x<numProp; x++) {
-			System.out.println("Quina sera l'acceleració maxima del propulsor numero "+(x+1)+"?");
+			System.out.println("Which will be the maximum acceleration of thr propeller number  "+(x+1)+"?");
 			double maxAcceleration=Keyboard.readDouble();
 			Propeller p=new Propeller(maxAcceleration);
 			r.addPropeller(p);
 		}
 			
-		System.out.println("Vols afeguir un altre rocket s o n?");
+		System.out.println("Do you want to add another rocket to the race? Y/N");
 		char option=Keyboard.readChar();
-		if(option=='n') Continue=false;
+		if(option=='N') Continue=false;
 		
 		circuit.addRockets(r);
 

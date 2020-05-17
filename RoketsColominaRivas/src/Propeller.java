@@ -4,7 +4,7 @@ private double maxAcceleration;
 private double  acceleration;
 
 public Propeller(double maxAcceleration) throws Exception {
-	if(maxAcceleration<0) throw new Exception("Error: La acceleracio maxima no pot ser inferior a 0");
+	if(maxAcceleration<0) throw new Exception("Error:The maximum acceleration cannot be lower than 0");
 
     acceleration=0;
     this.maxAcceleration=maxAcceleration;

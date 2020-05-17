@@ -4,7 +4,7 @@ public class Fuel  {
     private double maximumCapacity;
     
     public Fuel(int maximumCapacity) throws Exception {
-    	if(maximumCapacity<=0) throw new Exception("Error: La capacitat maxima no pot ser 0 o inferior.");
+    	if(maximumCapacity<=0) throw new Exception("Error:The maximum capacity cannot be lower than 0 ");
         this.maximumCapacity=maximumCapacity;
         this.fuelLevel=maximumCapacity;
     }
@@ -13,11 +13,11 @@ public class Fuel  {
         fuelLevel = fuelLevel - (0.02*Math.pow(velocity, 2));
         if(fuelLevel<0) {
         	fuelLevel=0;
-        	throw new Exception("Tanc buid");
+        	throw new Exception("Empty tank");
 
         }
         else {
-        return fuelLevel;}
+        return Math.round(fuelLevel);}
     }
 	
 	public double getMaximumCapacity() {return this.maximumCapacity;}
