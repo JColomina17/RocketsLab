@@ -4,31 +4,19 @@ import Keyboard.Keyboard;
 
 public class Main {
 	public static void main (String [] args) throws Exception {
-		int circuitLength=1700;
+		int circuitLength=100000000;
 		String circuitName="SeaFly";
-		double circuitTime=28;
+		double circuitTime=10000000;
 		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);
-		addRocketProba(circuit);
+		addRockets(circuit);
 			for(int time=1; time<circuit.getTime()&& !(circuit.circuitFinished(time))&& circuit.rocketList.size()>0; time++) {
-				System.out.println("klk");
 				circuit.nextMovement(time);
 			}
 		
 
 }
 	
-	public static void addRocketProba(Circuit circuit) throws Exception {
-		Rocket r= new Rocket("Cacatua Espacial",4200);
-		Propeller p1=new Propeller(10);
-		Propeller p2=new Propeller(20);
-		Propeller p3=new Propeller(50);
-
-		r.addPropeller(p2);
-		r.addPropeller(p1);
-		r.addPropeller(p3);
-		circuit.addRockets(r);
-
-	}
+	
 	
 	public static void addRockets(Circuit circuit) throws Exception {
 		boolean Continue=true;

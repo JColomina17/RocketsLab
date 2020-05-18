@@ -28,7 +28,7 @@ public class Rocket {
     		hm=p.increaseAcceleration(hm);
 
         }
-        if(hm<0) System.out.println("Maximum power already reached");
+        if(hm>0) System.out.println("Maximum power already reached");
 		
 	}
 	
@@ -102,7 +102,7 @@ public class Rocket {
 		}
 	public void infoRocket(double time) {
 		try {
-			System.out.println("The rocket "+this.name+" te una velocitat de "+this.getSpeed()+", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuel.getMaximumCapacity());
+			System.out.println("The rocket "+this.name+" has a speed of "+this.getSpeed()+", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuel.getMaximumCapacity());
 		} catch (Exception e) {
 			System.out.println("The rocket "+this.name+" has no fuel");
 		}
