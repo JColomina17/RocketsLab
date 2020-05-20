@@ -4,7 +4,7 @@ import Keyboard.Keyboard;
 
 public class Rocket {
 	List<Propeller> propelerList = new ArrayList<Propeller> ();
-	private Fuel fuel;
+	private FuelTank fuelTank;
 	private String name;
 	private double speed;
 	private double distance;
@@ -13,7 +13,7 @@ public class Rocket {
 		this.name=name;
 		propelerList = new ArrayList<Propeller> ();
 		this.distance=0;
-		this.fuel= new Fuel(maxiCapacity);
+		this.fuelTank= new FuelTank(maxiCapacity);
 		this.speed=0;
 	}
 	
@@ -21,35 +21,26 @@ public class Rocket {
 		this.propelerList.add(p);
 	}
 	
-	public void increaseAcceleration(double hm) {
-        Iterator<Propeller> it = propelerList.iterator(); 
-        while(it.hasNext() && hm>0) {
-        	Propeller p=it.next();
-    		hm=p.increaseAcceleration(hm);
+	public void changeAcceleration(double hm, boolean increase) {
+		
+		for (Propeller p : propelerList) {
+			if(hm>0)
+			if(increase) hm=p.increaseAcceleration(hm);
+			else hm=p.decreaseAcceleration(hm);
 
-        }
+		}
+
         if(hm>0) System.out.println("Maximum power already reached");
 		
 	}
 	
-	public void decreaseAcceleration(double hm) {
-		Iterator<Propeller> it = propelerList.iterator(); 
-        while(it.hasNext() && hm>0) {
-        	Propeller p=it.next();
-
-    		hm=p.decreaseAcceleration(hm);
-        }
-        
-		}
 	
 	public double getAcceleration() {
 		double acceleration=0;
-		
-		Iterator<Propeller> it = propelerList.iterator(); 
-        while(it.hasNext()) {
-        	Propeller p=it.next();
+		for (Propeller p : propelerList) {
         	acceleration+=p.getAcceleration();
-        }
+
+		}
 		
 		return acceleration;
 	}
@@ -74,37 +65,44 @@ public class Rocket {
 	}
 	
 	public double calculateTank() throws Exception {
-		return  this.fuel.calculateTank(this.speed);
+		return  this.fuelTank.calculateTank(this.speed);
 	}
 	
 	public void nextMovement(int time) throws Exception {
 		int option;
 		double aux;
-		System.out.println("Press 1 to accelerate and 2 to stop");
+		System.out.println("Press 1 to accelerate, 2 to stop and 3 to continue");
 		option=Keyboard.readInt();
 		switch(option) {
 		  case 1:
 			  System.out.println("How much do you want to accelerate");
 			  aux=Keyboard.readDouble();
-			  this.increaseAcceleration(aux);
+			  this.changeAcceleration(aux,true);
 			  
 			  break;
 		  case 2:
 			  System.out.println("How much do you want to decrease");
 			  aux=Keyboard.readDouble();
-			  this.decreaseAcceleration(aux);
+			  this.changeAcceleration(aux,false);
 			  break;
+		  case 3: break;
+			  
 		}
+		calculateAll(time);
 		
+		}
+	
+	public void calculateAll(double time) throws Exception {
 		 this.calculateSpeed(time);
 		 this.calculateTank();
 		 this.infoRocket(time);
-		}
+	}
 	public void infoRocket(double time) {
 		try {
-			System.out.println("The rocket "+this.name+" has a speed of "+this.getSpeed()+", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuel.getMaximumCapacity());
+			System.out.println("The rocket "+this.name+" has a speed of "+this.getSpeed()+", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuelTank.getMaximumCapacity());
 		} catch (Exception e) {
 			System.out.println("The rocket "+this.name+" has no fuel");
+			
 		}
 	}
 	

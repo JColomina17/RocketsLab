@@ -1,9 +1,9 @@
 
-public class Fuel  {
+public class FuelTank  {
     private double fuelLevel;
     private double maximumCapacity;
     
-    public Fuel(int maximumCapacity) throws Exception {
+    public FuelTank(int maximumCapacity) throws Exception {
     	if(maximumCapacity<=0) throw new Exception("Error:The maximum capacity cannot be lower than 0 ");
         this.maximumCapacity=maximumCapacity;
         this.fuelLevel=maximumCapacity;

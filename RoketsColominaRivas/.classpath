@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/polrivas/Downloads/Keyboard.jar"/>
+	<classpathentry kind="lib" path="/Users/josecolomina/Desktop/Librerias Eclipse/Keyboard.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
