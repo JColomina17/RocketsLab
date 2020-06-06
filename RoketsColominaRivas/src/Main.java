@@ -8,17 +8,31 @@ public class Main {
 		String circuitName="SeaFly";
 		double circuitTime=28;
 		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);
-		circuit.addRockets();
-			for(int time=1; endCircuit(time,circuit); time++) {
-				circuit.nextMovement(time);
-			}
+		
+		
+		System.out.println("Which will be the name of the rocket");
+		String nameRocket=Keyboard.readString();	
+		System.out.println("Which one will be the maximum capacity of the tank");
+		int maxiCapacity=Keyboard.readInt();
+		System.out.println("How many propellers will the rocket have? ");
+		int numProp=Keyboard.readInt();
+		circuit.addRockets(nameRocket,maxiCapacity);
+		for(int x=0; x<numProp; x++) {
+			System.out.println("Which will be the maximum acceleration of thr propeller number  "+(x+1)+"?");
+			double maxAcceleration=Keyboard.readDouble();
+			Propeller p=new Propeller(maxAcceleration);
+			Circuit.addPropeller(p);
+		}
+		
+		
+		
+		
+		circuit.StartRace();
 		
 
 }
 	
-	public static boolean endCircuit(double time, Circuit circuit) {
-		return time<circuit.getTime()&& !(circuit.circuitFinished(time))&& Circuit.rocketList.size()>0;
-	}
+	
 	
 	
 	

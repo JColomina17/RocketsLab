@@ -1,5 +1,6 @@
 	import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import Keyboard.Keyboard;
 	
@@ -8,47 +9,48 @@ import Keyboard.Keyboard;
 	private int circuitLength;
 	private String circuitName;
 	private double circuitTime;
-	public static ArrayList<Rocket> rocketList;
+	private static  Rocket Rocket;
 	
-	public Circuit(int circuitLength,String circuitName, double circuitTime ) {
+	public Circuit(int circuitLength,String circuitName, double circuitTime ) throws Exception {
 		this.circuitLength=circuitLength;
 		this.circuitName=circuitName;
 		this.circuitTime=circuitTime;
-		this.rocketList = new ArrayList<Rocket> ();
+
+	}
+	
+	 
+	 public void StartRace() throws Exception {
+		for(double time=1; endCircuit(time); time++) {
+			this.nextMovement(time);
+		}
+	
 	}
 	
 	
-	public void nextMovement(int time) {
-		for (Rocket r : rocketList) {
-			System.out.println("What does the rocket "+r.getName()+" want");
-        	try {
-				r.nextMovement(time);
-			} catch (Exception e) {
-	        	System.out.println("The rocket "+r.getName() +" has no fuel left");
-	        	rocketList.remove(r);
-			}
-		}
-        	
+	private boolean endCircuit(double time) {
+		
+		return time>this.getTime() && !(this.circuitFinished(time));
+	}
+
+	public void nextMovement(double time) throws Exception {
+		
+		Rocket.nextMovement(time);
         }
 	
 	
 	public void infoRocket(double time) {
-		for (Rocket r : rocketList) r.infoRocket(time);
+		Rocket.infoRocket(time);
 		
 	}
 	
 	public boolean circuitFinished(double time) {
-		if(this.rocketList.size()==0) {
-			System.out.print("There's no winner");
-			return true;}
 		
-		for (Rocket r : rocketList) {
-			double distance= r.getDistancecovered();
+			double distance= Rocket.getDistancecovered();
         	if(distance>=this.circuitLength){
-        		System.out.println("And the winner is: "+ r.getName() +" with a time of "+time);
+        		System.out.println("And the winner is: "+ Rocket.getName() +" with a time of "+time);
         		return true;
         	}
-		}
+		
 		
 
 		
@@ -61,34 +63,17 @@ import Keyboard.Keyboard;
 	public double getTime() {
 		return this.circuitTime;
 	}
-	public static void addRockets() throws Exception {
-			
-			System.out.println("Which will be the name of the rocket");
-			String nameRocket=Keyboard.readString();	
-			System.out.println("Which one will be the maximum capacity of the tank");
-			int maxiCapacity=Keyboard.readInt();
-			
-			Rocket r= new Rocket(nameRocket,maxiCapacity);
-			
-			addPropellers(r);
-			rocketList.add(r);
-		
-			System.out.println("Do you want to add another rocket to the race? Y/N");
-			char option=Keyboard.readChar();
-			if(option=='Y') addRockets();
 	
+		
+		public static void addPropeller(Propeller p) throws Exception {
+			
+				Rocket.addPropeller(p);
 			
 		}
-		
-		public static void addPropellers(Rocket r) throws Exception {
-			System.out.println("How many propellers will the rocket have? ");
-			int numProp=Keyboard.readInt();
-			for(int x=0; x<numProp; x++) {
-				System.out.println("Which will be the maximum acceleration of thr propeller number  "+(x+1)+"?");
-				double maxAcceleration=Keyboard.readDouble();
-				Propeller p=new Propeller(maxAcceleration);
-				r.addPropeller(p);
-			}
+
+		public void addRockets(String nameRocket, int maxiCapacity) throws Exception {
+			this.Rocket = new Rocket(nameRocket,maxiCapacity);
+			
 		}
 		
 	

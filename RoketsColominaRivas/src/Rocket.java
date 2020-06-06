@@ -68,26 +68,9 @@ public class Rocket {
 		return  this.fuelTank.calculateTank(this.speed);
 	}
 	
-	public void nextMovement(int time) throws Exception {
-		int option;
-		double aux;
-		System.out.println("Press 1 to accelerate, 2 to stop and 3 to continue");
-		option=Keyboard.readInt();
-		switch(option) {
-		  case 1:
-			  System.out.println("How much do you want to accelerate");
-			  aux=Keyboard.readDouble();
-			  this.changeAcceleration(aux,true);
-			  
-			  break;
-		  case 2:
-			  System.out.println("How much do you want to decrease");
-			  aux=Keyboard.readDouble();
-			  this.changeAcceleration(aux,false);
-			  break;
-		  case 3: break;
-			  
-		}
+	public void nextMovement(double time) throws Exception {
+		//Algoritme per triar millor opcio i executar-la
+		
 		calculateAll(time);
 		
 		}
