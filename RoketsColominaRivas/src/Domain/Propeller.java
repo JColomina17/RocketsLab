@@ -1,3 +1,4 @@
+package Domain;
 public class Propeller {
     
 private double maxAcceleration;
@@ -34,5 +35,8 @@ public double decreaseAcceleration(double decrease) {
 }
 public double getAcceleration() {
     return acceleration;
+}
+public double getMaxAcceleration() {
+	return this.maxAcceleration;
 }
 }

@@ -1,3 +1,4 @@
+package Domain;
 
 public class FuelTank  {
     private double fuelLevel;
