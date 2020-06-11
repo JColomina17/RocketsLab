@@ -1,9 +1,11 @@
 package Domain;
 	import java.util.ArrayList;
+
 import java.util.List;
 
 import Observer.ObserverCircuit;
-
+import Application.RocketController;
+import Application.DTO.RocketDTO;
 	
 	public class Circuit {
 		
@@ -41,7 +43,7 @@ import Observer.ObserverCircuit;
 	}
 	
 	
-	private boolean endCircuit(double time) {
+	private boolean endCircuit(double time) throws Exception {
 		
 		return time>this.getTime() && (this.circuitFinished(time));
 	}
@@ -63,7 +65,7 @@ import Observer.ObserverCircuit;
 		}		
 	}
 	
-	public boolean circuitFinished(double time) {
+	public boolean circuitFinished(double time) throws Exception {
 		int rocketsRacing=0;
 		for(Rocket r : Rockets) {
 			if(!r.getObserver().noFuel) {
@@ -71,6 +73,8 @@ import Observer.ObserverCircuit;
 			double distance= r.getDistancecovered();
         	if(distance>=this.circuitLength){
         		observer.update(true, r.getName());
+        		r.setTime(time);
+        	
         		return true;
         	}
 			}

@@ -1,6 +1,7 @@
 package Domain;
 import java.util.*;
 
+import Application.DTO.RocketDTO;
 import Keyboard.Keyboard;
 import Observer.ObserverCircuit;
 import Observer.ObserverRocket;
@@ -10,17 +11,31 @@ public class Rocket {
 	private FuelTank fuelTank;
 	private String name;
 	private double speed;
+	private double time;
 	private double distance;
 	private double Acceleration;
 	private  ObserverRocket observer;
 	int Strategy; //1 FOR SMALL 2 FOR MEDIUM 3 FOR LARGE
+	
+	public Rocket() {
+		
+	}
 	public Rocket(String name,int maxiCapacity) throws Exception {
 		this.name=name;
 		propelerList = new ArrayList<Propeller> ();
 		this.distance=0;
 		this.fuelTank= new FuelTank(maxiCapacity);
 		this.speed=0;
+		this.time=0;
+	}
 	
+	public Rocket(RocketDTO rocketDTO) throws Exception {
+		if(rocketDTO==null)
+			throw new Exception();
+		name=rocketDTO.getName();
+		time=rocketDTO.getTime();
+		
+		
 	}
 	public void addObserver(ObserverRocket ob) {
 		this.observer=ob;
@@ -48,6 +63,13 @@ public class Rocket {
 		return this.speed;
 		
 	}
+	public double getTime() {
+	return time;	
+	}
+	public void setTime(double time) {
+		this.time=time;
+	}
+	
 	public double calculateSpeed(double time) {
 		
 		speed= this.speed +(this.getAcceleration()*time);
@@ -145,7 +167,13 @@ public class Rocket {
 
 	}
 	
-	
+	public void updateRocket(RocketDTO dto) throws Exception{
+		if(dto==null)
+			throw new Exception();
+		name=dto.getName();
+		time=dto.getTime();
+		
+	}
 	
 	public double getMaxAcc() {
 		double maxAc=0;

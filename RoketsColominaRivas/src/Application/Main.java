@@ -1,32 +1,37 @@
 package Application;
 import java.io.IOException;
 
+import Application.DTO.RocketDTO;
 import Domain.Circuit;
 import Domain.Propeller;
 import Domain.Rocket;
 import Keyboard.Keyboard;
 import Observer.ObserverCircuit;
 import Observer.ObserverRocket;
+import Application.DTO.*;
+import Application.RocketController;
 
 public class Main {
+	private static RocketController controller= new RocketController();
 	public static void main (String [] args) throws Exception {
-	
+
 		int circuitLength=1700;
 		String circuitName="SeaFly";
 		double circuitTime=28;
-		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);
-					//Rocket
+		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);//Rocket
 			
-		Rocket r= new Rocket("Speedy V",420000);
+		Rocket r=new Rocket("Speedy V",420000);
+
 		r.addPropeller(new Propeller(10));
 		r.addPropeller(new Propeller(30));
 		r.addPropeller(new Propeller(50));
 		r.addObserver(new ObserverRocket(r));
+		RocketDTO a= new RocketDTO(r);
+		a=controller.createRocket(a);
 
 		ObserverCircuit observerCircuit=new ObserverCircuit(circuit);
 		
 		circuit.addRockets(r);
-		
 		circuit.addObserver(observerCircuit);
 		circuit.StartRace();
 		
