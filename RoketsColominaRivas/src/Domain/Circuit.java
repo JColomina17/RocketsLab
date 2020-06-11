@@ -1,12 +1,9 @@
 package Domain;
 	import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Observer;
 
-import Keyboard.Keyboard;
 import Observer.ObserverCircuit;
-import Observer.ObserverRocket;
+
 	
 	public class Circuit {
 		
@@ -30,15 +27,14 @@ import Observer.ObserverRocket;
 	 
 	 public void StartRace() throws Exception {
 		 for(Rocket r : Rockets) {
-				r.Strategy(circuitLength,  circuitTime);
+				r.Strategy(circuitLength, circuitTime);
 			}
 		 
 		 for(double time=0;!endCircuit(time);time++) {
 			 for(Rocket r : Rockets) {
+				 if(!r.getObserver().noFuel) {
 					r.nextMovement(time);
-					observer.updateRaceStatus(r.getObserver().race);
-					observer.updateRaceStatus(" /n");
-
+					observer.updateRaceStatus(r.getObserver().race);}
 				}
 		 }
 	
@@ -47,7 +43,7 @@ import Observer.ObserverRocket;
 	
 	private boolean endCircuit(double time) {
 		
-		return time>this.getTime() && !(this.circuitFinished(time));
+		return time>this.getTime() && (this.circuitFinished(time));
 	}
 
 	public void nextMovement(double time) throws Exception {
@@ -68,14 +64,21 @@ import Observer.ObserverRocket;
 	}
 	
 	public boolean circuitFinished(double time) {
+		int rocketsRacing=0;
 		for(Rocket r : Rockets) {
+			if(!r.getObserver().noFuel) {
+				rocketsRacing++;
 			double distance= r.getDistancecovered();
         	if(distance>=this.circuitLength){
         		observer.update(true, r.getName());
         		return true;
         	}
+			}
 		}
-		
+		if(rocketsRacing==0) { 
+			observer.updateRaceStatus("There is no winner");
+			
+			return true;}
 		return false;
 		
 	}

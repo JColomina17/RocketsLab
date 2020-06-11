@@ -14,6 +14,7 @@ public class FuelTank  {
         fuelLevel = fuelLevel - (0.02*Math.pow(velocity, 2));
         if(fuelLevel<0) {
         	fuelLevel=0;
+        	
         	throw new Exception("Empty tank");
 
         }

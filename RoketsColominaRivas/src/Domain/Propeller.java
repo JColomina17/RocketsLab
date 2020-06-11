@@ -3,17 +3,25 @@ public class Propeller {
     
 private double maxAcceleration;
 private double  acceleration;
-
 public Propeller(double maxAcceleration) throws Exception {
 	if(maxAcceleration<0) throw new Exception("Error:The maximum acceleration cannot be lower than 0");
-
     acceleration=0;
     this.maxAcceleration=maxAcceleration;
+    
 }
-public void setAcceleration(double acceleration) throws Exception {
-	if(acceleration<1)
+public double setAcceleration(double acceleration) throws Exception {
+	if(acceleration<0)
 		throw new Exception();
-	this.acceleration=acceleration;
+	if(acceleration>maxAcceleration) {
+		this.acceleration=maxAcceleration;
+		acceleration-=maxAcceleration;
+	}
+	else {
+		this.acceleration=acceleration;
+		acceleration=0;
+	}
+
+	return acceleration;
 }
 public double getAcceleration() {
     return acceleration;

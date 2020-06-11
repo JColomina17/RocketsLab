@@ -11,8 +11,9 @@ public class Rocket {
 	private String name;
 	private double speed;
 	private double distance;
-	private double MaxAcceleration;
+	private double Acceleration;
 	private  ObserverRocket observer;
+	int Strategy; //1 FOR SMALL 2 FOR MEDIUM 3 FOR LARGE
 	public Rocket(String name,int maxiCapacity) throws Exception {
 		this.name=name;
 		propelerList = new ArrayList<Propeller> ();
@@ -47,10 +48,11 @@ public class Rocket {
 		return this.speed;
 		
 	}
-	public void calculateSpeed(double time) {
+	public double calculateSpeed(double time) {
 		
 		speed= this.speed +(this.getAcceleration()*time);
 		observer.updatespeed(speed);
+		return speed;
 	}
 	
 	public double calculateDistancecovered(double V0, double time) {
@@ -59,7 +61,6 @@ public class Rocket {
 		observer.updatedistance(distance);
 		return this.distance;
 		}
-	
 	public double getDistancecovered() {
 		return this.distance;
 	}
@@ -72,59 +73,80 @@ public class Rocket {
 	
 	/////////MOVIMIENTO//////////
 	public void nextMovement(double time) throws Exception {
-		
-		//PONER LOS PROPELLERS EN LA ACC
-		calculateAll(time);
+		switch(Strategy) {
+		case 1: StrategySmallCircuit(); break;
+		case 2:StrategyMediumCircuit(); break;
+		case 3:StrategyLargeCircuit(); break;
+
+		}
+		infoRocket(time);
 		
 		}
 	
-	public void changeAcceleration(double hm, boolean increase) {
-			
-			//IMPLEMENTAR
+	public void changeAcceleration(double howMuch) throws Exception {
+		double aux=howMuch;
+		for(Propeller p : propelerList) {
+			p.setAcceleration(0);
+		}
+		
+		for(Propeller p : propelerList) {
+			if(aux!=0) aux=p.setAcceleration(aux);
 			
 		}
+		}
 	
-	///////////////////////////
 	
-	public void calculateAll(double time) throws Exception {
-		 this.calculateSpeed(time);
-		 this.calculateTank();
-		 this.infoRocket(time);
-	}
-	public void infoRocket(double time) {////////MIRAR 
+	
+	public void infoRocket(double time) {
 		try {
-			observer.updateRace("The rocket "+this.name+" has a speed of "+this.getSpeed()+", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuelTank.getMaximumCapacity());
+			observer.updateRace("The rocket "+this.name+" has a speed of "+ this.calculateSpeed(time) +", with an acceleration of "+ this.getAcceleration()+ " a distance traveled of "+this.calculateDistancecovered(this.speed, time) +" and still has in its tank "+ this.calculateTank()+"/"+this.fuelTank.getMaximumCapacity());
 		} catch (Exception e) {
 			observer.updateRace("The rocket "+this.name+" has no fuel");
-			
+			observer.updateFuel();
 		}
 	}
+	
+	
 	
 	public void Strategy(int circuitLength, double circuitTime) {
-		MaxAcceleration=chooseStrategy(circuitLength, circuitTime, getMaxAcc());
+		
+		double proportion=circuitLength/circuitTime;
+		
+		if(proportion>0 && proportion<33) {
+			this.Strategy=1;
+		}
+		else {
+			if(proportion>33 && proportion<66) {
+				this.Strategy=2;
+			}
+			else {
+				this.Strategy=3;
+
+			}
+		}
+		
 	}
 	
-	private double chooseStrategy(int circuitLength, double circuitTime,double maxAcceleration) {
-		double velocity,initialVelocity, metrmeterstraveled,fuelLevel;
-		initialVelocity=0;
-		metrmeterstraveled=0;
-		fuelLevel=this.fuelTank.getMaximumCapacity();
-		for(int time=0; time<circuitTime;time++) {
-			velocity=initialVelocity+maxAcceleration*time;
-			metrmeterstraveled=(metrmeterstraveled+velocity*time)+(1/2*maxAcceleration)*(Math.pow(time, 2));
-			fuelLevel-=0.02*Math.pow(velocity, 2);
-			
-				if(metrmeterstraveled>circuitLength) {
-					return maxAcceleration;
-				}
-				else { 
-					if(fuelLevel<=0) {
-						return chooseStrategy(circuitLength,circuitTime,maxAcceleration-1);
-					}
-		}
-		}
-		return 0;
+
+	
+	private void StrategyLargeCircuit() throws Exception {
+		if(this.getAcceleration()==0) changeAcceleration(this.getMaxAcc()*0.2);
+		changeAcceleration(this.getAcceleration()+this.getMaxAcc()*0.1);
 	}
+	
+	private void StrategyMediumCircuit() throws Exception {
+		if(this.getAcceleration()==0) changeAcceleration(this.getMaxAcc()*0.5);	
+		changeAcceleration(this.getAcceleration()+this.getMaxAcc()*0.1);
+	}
+	
+	private void StrategySmallCircuit() throws Exception {
+		if(this.getAcceleration()==0) changeAcceleration(this.getMaxAcc()*0.75);	
+		changeAcceleration(this.getAcceleration()+this.getMaxAcc()*0.05);
+
+	}
+	
+	
+	
 	public double getMaxAcc() {
 		double maxAc=0;
 		for(Propeller p: propelerList) {
