@@ -8,7 +8,8 @@ import Application.RocketController;
 import Application.DTO.RocketDTO;
 	
 	public class Circuit {
-		
+		private static RocketController controller= new RocketController();
+
 	private int circuitLength;
 	private String circuitName;
 	private double circuitTime;
@@ -74,6 +75,8 @@ import Application.DTO.RocketDTO;
         	if(distance>=this.circuitLength){
         		observer.update(true, r.getName());
         		r.setTime(time);
+        		RocketDTO a= new RocketDTO(r);
+        		a=controller.createRocket(a);
         	
         		return true;
         	}

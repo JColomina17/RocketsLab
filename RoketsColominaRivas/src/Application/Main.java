@@ -12,7 +12,6 @@ import Application.DTO.*;
 import Application.RocketController;
 
 public class Main {
-	private static RocketController controller= new RocketController();
 	public static void main (String [] args) throws Exception {
 
 		int circuitLength=1700;
@@ -26,8 +25,7 @@ public class Main {
 		r.addPropeller(new Propeller(30));
 		r.addPropeller(new Propeller(50));
 		r.addObserver(new ObserverRocket(r));
-		RocketDTO a= new RocketDTO(r);
-		a=controller.createRocket(a);
+	
 
 		ObserverCircuit observerCircuit=new ObserverCircuit(circuit);
 		
