@@ -1,15 +1,11 @@
 package Application;
-import java.io.IOException;
 
-import Application.DTO.RocketDTO;
 import Domain.Circuit;
 import Domain.Propeller;
 import Domain.Rocket;
 import Keyboard.Keyboard;
 import Observer.ObserverCircuit;
 import Observer.ObserverRocket;
-import Application.DTO.*;
-import Application.RocketController;
 
 public class Main {
 	public static void main (String [] args) throws Exception {
@@ -19,18 +15,12 @@ public class Main {
 		double circuitTime=28;
 		Circuit circuit=new Circuit(circuitLength,circuitName,circuitTime);//Rocket
 			
-		Rocket r=new Rocket("Speedy V",420000);
-
-		r.addPropeller(new Propeller(10));
-		r.addPropeller(new Propeller(30));
-		r.addPropeller(new Propeller(50));
-		r.addObserver(new ObserverRocket(r));
-	
-
-		ObserverCircuit observerCircuit=new ObserverCircuit(circuit);
 		
-		circuit.addRockets(r);
+		ObserverCircuit observerCircuit=new ObserverCircuit(circuit);
 		circuit.addObserver(observerCircuit);
+		
+		createRockets(circuit);
+		
 		circuit.StartRace();
 		
 		System.out.println(observerCircuit.raceStatus.substring(4));
@@ -45,15 +35,35 @@ public class Main {
 	
 	
 	
+	public static void create(Circuit circuit) throws Exception {
+		Rocket r=new Rocket("Speedy 1",2000);
+
+		r.addPropeller(new Propeller(10));
+		r.addPropeller(new Propeller(30));
+		r.addPropeller(new Propeller(50));
+		r.addObserver(new ObserverRocket(r));
 	
-	public void createRockets(Circuit circuit) throws Exception {
+		Rocket r2=new Rocket("Speedy 2",4000);
+		circuit.addRockets(r);
+
+		r2.addPropeller(new Propeller(10));
+		r2.addPropeller(new Propeller(50));
+		r2.addPropeller(new Propeller(70));
+		r2.addObserver(new ObserverRocket(r));
+		circuit.addRockets(r2);
+
+	}
+	public static void createRockets(Circuit circuit) throws Exception {
 		boolean repeat=true;
 		while(repeat) {
+		
+		//Rockets
 		System.out.println("Which will be the name of the rocket");
 		String nameRocket=Keyboard.readString();	
 		System.out.println("Which one will be the maximum capacity of the tank");
 		int maxiCapacity=Keyboard.readInt();
 		Rocket r= new Rocket(nameRocket,maxiCapacity);
+
 		//Propellers
 		System.out.println("How many propellers will the rocket have? ");
 		int numProp=Keyboard.readInt();
@@ -63,6 +73,7 @@ public class Main {
 			Propeller p=new Propeller(maxAcceleration);
 			r.addPropeller(p);
 		}
+		
 		r.addObserver(new ObserverRocket(r));
 		circuit.addRockets(r);
 
