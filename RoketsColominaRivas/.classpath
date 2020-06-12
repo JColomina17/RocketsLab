@@ -6,7 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/josecolomina/Desktop/Librerias Eclipse/Keyboard.jar"/>
-	<classpathentry kind="lib" path="/Users/josecolomina/Desktop/Librerias Eclipse/ojdbc14-10.2.0.2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/polrivas/Desktop/Keyboard.jar"/>
+	<classpathentry kind="lib" path="/Users/polrivas/Desktop/ojdbc14-10.2.0.2.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

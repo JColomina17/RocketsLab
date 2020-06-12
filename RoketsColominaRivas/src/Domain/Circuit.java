@@ -72,7 +72,9 @@ import Application.DTO.RocketDTO;
 			if(!r.getObserver().noFuel) {
 				rocketsRacing++;
 			double distance= r.getDistancecovered();
+		
         	if(distance>=this.circuitLength){
+        		
         		observer.update(true, r.getName());
         		r.setTime(time);
         		RocketDTO a= new RocketDTO(r);

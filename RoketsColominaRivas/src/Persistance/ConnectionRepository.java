@@ -5,7 +5,7 @@ public class ConnectionRepository {
 	
 	static ConnectionBBDD getConnection() throws Exception {
 		if(connection==null)
-			connection =new ConnectionBBDD("privas","LAROJA99");
+			connection =new ConnectionBBDD("jcolomina","V47235393");
 		return connection;
 			
 	}

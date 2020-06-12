@@ -34,7 +34,7 @@ public class ConnectionBBDD implements Connection {
 		
 		try {
 			DriverManager.registerDriver(new OracleDriver());
-			connection=DriverManager.getConnection("jdbc:oracle:thin:@kali.tecnocampus.cat:1521:sapiens","privas","LAROJA99");
+			connection=DriverManager.getConnection("jdbc:oracle:thin:@kali.tecnocampus.cat:1521:sapiens","jcolomina","V47235393");
 		}catch(Exception e) {
 			throw new Exception("Not able to connect to DB",e);
 		}

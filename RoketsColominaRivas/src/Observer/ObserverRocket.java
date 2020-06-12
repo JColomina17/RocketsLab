@@ -10,13 +10,14 @@ public class ObserverRocket {
 	public final String name;
 	public final  double maxTank;
 	public String race;
-	public boolean noFuel=false;
+	public boolean noFuel;
 
 	public ObserverRocket(Rocket rocket) {
 		 this.rocket = rocket;
 		 this.maxTank=rocket.getMaxTank();
 		 this.name=rocket.getName();
 		 this.race="";
+		 this.noFuel=false;
 
 	}
 	public void updatespeed(double speed) {
